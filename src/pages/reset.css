@@ -1,0 +1,33 @@
+/* CSS Reset For Mobile */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  background: #fff;
+  color: #000;
+  word-wrap: break-word;
+  -webkit-text-size-adjust: none;
+}
+
+p img {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border: 0;
+  max-width: 100%;
+}
+
+table {
+  width: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
