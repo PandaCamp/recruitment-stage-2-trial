@@ -56,18 +56,21 @@ const wrap: CSS = {
 }
 const UI = {
   svgHeight: 200,
+  wrapHeight: `calc(100vh - 45px)`,
 }
 export default function Login() {
   const svgRef = useRef<SVGSVGElement>(null)
+  const wrapRef = useRef<HTMLDivElement>(null)
   const [footerEleHeight, setFooterEleHeight] = useState(UI.svgHeight)
-
+  const [wrapStyle, setWrapStyle] = useState<CSS>(wrap)
   useLayoutEffect(() => {
     /* For optimization we assume that use can't change the viewport size on mobile. so we don't need to listen event `onsize`*/
     setFooterEleHeight(svgRef.current?.getBoundingClientRect().height ?? UI.svgHeight)
+    setWrapStyle({...wrap, height: wrapRef.current?.getBoundingClientRect().height ?? UI.wrapHeight})
   }, [])
 
   return (
-    <div style={wrap}>
+    <div style={wrapStyle} ref={wrapRef}>
       <div style={content}>
         <div style={title}>员工登录</div>
         <div style={desc}>员工登录后，可推荐应聘者获取奖金哦～</div>
