@@ -1,7 +1,9 @@
 import React, {useLayoutEffect, useRef, useState} from 'react'
 import Button from '../components/button'
 import Input from '../components/input'
+import Input2 from '../components/input2'
 import './reset.css'
+
 
 //#region  CSS
 type CSS = React.CSSProperties
@@ -57,7 +59,7 @@ const svgContent: CSS = {
 }
 const wrap: CSS = {
   marginTop: UI.offsetTop,
-  height: UI.wrapHeight
+  height: UI.wrapHeight,
 }
 //#endregion
 
@@ -86,10 +88,10 @@ export default function Login() {
         <div style={title}>员工登录</div>
         <div style={desc}>员工登录后，可推荐应聘者获取奖金哦～</div>
 
-        <Input style={{...ipt1, marginBottom: 30}} value="Q😍🐷" />
+        <Input style={{...ipt1, marginBottom: 30}} value="" />
 
-        <Input style={ipt1} value="112221" />
-
+        <Input style={ipt1} />
+        <Input2 />
         <Button disable style={btn} />
       </article>
       <footer style={{...ft, height: ~~footerEleHeight, top: distance}}>
