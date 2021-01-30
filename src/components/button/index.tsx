@@ -1,8 +1,10 @@
 import type {FC} from 'react'
 
 interface InputProps {
+  /* 文本值 */
   value?: string
   style?: React.CSSProperties
+  /**50%透明度的特效 */
   disable?: boolean
 }
 
