@@ -62,6 +62,7 @@ export default function Login() {
   const [footerEleHeight, setFooterEleHeight] = useState(UI.svgHeight)
 
   useLayoutEffect(() => {
+    /* For optimization we assume that use can't change the viewport size on mobile. so we don't need to listen event `onsize`*/
     setFooterEleHeight(svgRef.current?.getBoundingClientRect().height ?? UI.svgHeight)
   }, [])
 
