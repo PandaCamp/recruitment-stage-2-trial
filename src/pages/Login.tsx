@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useLayoutEffect, useRef, useState} from 'react'
 import Button from '../components/button'
 import Input from '../components/input'
 import './reset.css'
@@ -54,7 +54,17 @@ const wrap: CSS = {
   // paddingTop: 45,
   height: 'calc(100vh - 45px)',
 }
+const UI = {
+  svgHeight: 200,
+}
 export default function Login() {
+  const svgRef = useRef<SVGSVGElement>(null)
+  const [footerEleHeight, setFooterEleHeight] = useState(UI.svgHeight)
+
+  useLayoutEffect(() => {
+    setFooterEleHeight(svgRef.current?.getBoundingClientRect().height ?? UI.svgHeight)
+  }, [])
+
   return (
     <div style={wrap}>
       <div style={content}>
@@ -67,9 +77,9 @@ export default function Login() {
 
         <Button disable style={btn} value="登录" />
       </div>
-      <footer style={ft}>
+      <footer style={{...ft, height: footerEleHeight}}>
         <svg style={svgContent} height="202px" viewBox="0 0 375 202" version="1.1" preserveAspectRatio="xMinYMin meet">
-          <g id="01.-登录注册" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g ref={svgRef} id="mutateHeight" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="01.-登录注册-规约" transform="translate(-81.000000, -883.000000)">
               <g id="编组-37" transform="translate(81.000000, 273.000000)">
                 <g id="编组-4" transform="translate(0.000000, 610.812500)">
