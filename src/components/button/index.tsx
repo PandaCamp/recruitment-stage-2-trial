@@ -9,9 +9,11 @@ interface InputProps {
 }
 
 const Button: FC<InputProps> = (props) => {
+  const {style = {}, disable = false, value = '登录'} = props
+
   return (
-    <button {...props} style={{...props.style, opacity: props.disable ? '0.5' : '1'}}>
-      {props.value ?? '确认'}
+    <button {...props} style={{...style, opacity: disable ? '0.5' : '1'}}>
+      {value}
     </button>
   )
 }

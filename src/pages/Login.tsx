@@ -76,7 +76,7 @@ export default function Login() {
         <br />
         <Input style={ipt1} value="111" />
 
-        <Button disable style={btn} value="登录" />
+        <Button disable style={btn} />
       </div>
       <footer style={{...ft, height: footerEleHeight}}>
         <svg style={svgContent} height="202px" viewBox="0 0 375 202" version="1.1" preserveAspectRatio="xMinYMin meet">
