@@ -50,9 +50,9 @@ const svgContent: CSS = {
   width: '100%',
 }
 const wrap: CSS = {
-  marginBottom: -45,
-  paddingTop: 45,
-  height: 'calc(100vh)',
+  // marginBottom: -45,
+  // paddingTop: 45,
+  height: 'calc(100vh - 45px)',
 }
 export default function Login() {
   return (
