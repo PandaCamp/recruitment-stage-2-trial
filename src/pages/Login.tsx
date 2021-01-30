@@ -39,6 +39,8 @@ const ft: CSS = {
   width: '100%',
   overflow: 'hidden',
   height: 200,
+  // paddingBottom: '100%',
+  // verticalAlign: 'middle',
 }
 const svgContent: CSS = {
   display: 'inline-block',
@@ -49,7 +51,7 @@ const svgContent: CSS = {
 }
 export default function Login() {
   return (
-    <>
+    <div style={{height: 'calc(100vh - 45px)'}}>
       <div style={content}>
         <div style={title}>员工登录</div>
         <div style={desc}>员工登录后，可推荐应聘者获取奖金哦～</div>
@@ -398,6 +400,6 @@ export default function Login() {
           </g>
         </svg>
       </footer>
-    </>
+    </div>
   )
 }
