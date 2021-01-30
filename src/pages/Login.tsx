@@ -49,9 +49,14 @@ const svgContent: CSS = {
   left: 0,
   width: '100%',
 }
+const wrap: CSS = {
+  paddingBottom: 45,
+  marginTop: 45,
+  height: 'calc(100vh)',
+}
 export default function Login() {
   return (
-    <div style={{height: 'calc(100vh - 45px)'}}>
+    <div style={wrap}>
       <div style={content}>
         <div style={title}>员工登录</div>
         <div style={desc}>员工登录后，可推荐应聘者获取奖金哦～</div>
