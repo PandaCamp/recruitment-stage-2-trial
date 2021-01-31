@@ -8,14 +8,12 @@ const data: number[] = (function (length: number): any[] {
   return list
 })(2000)
 
-let size = 20
-export function useList(value: number) {
+export function useList(value: number, size = 1) {
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [list, setList] = useState<number[]>([])
-    console.log(value);
-    
+
   useEffect(() => {
     // setList([])
   }, [value])
@@ -28,13 +26,12 @@ export function useList(value: number) {
     new Promise<number[]>((res, rej) => {
       res(data.slice(value * size, (value + 1) * size))
     }).then((res) => {
-      console.log(res)
       setTimeout(() => {
         setList((prev) => {
           return [...new Set([...prev, ...res])]
         })
         setLoading(false)
-      }, 1000)
+      }, 500)
     })
   }
 

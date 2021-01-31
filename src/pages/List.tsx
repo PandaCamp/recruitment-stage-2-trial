@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import React, {FC, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import Button from '../components/button'
 import {useList} from '../hooks/useList'
 
@@ -24,13 +24,17 @@ interface ListProps {
 const SliderLoadList: FC<Partial<ListProps>> = () => {
   const [value, setValue] = useState(0)
   const {hasMore, loading, list, error} = useList(+value)
-  console.log(list)
+
+  const observer = useRef<any>()
+  const lastItemRef = useCallback((ele: any) => {
+    if (loading) return
+    if (observer.current) {
+      observer?.current?.disconnect()
+    }
+  }, [])
 
   return (
-    <div
-      onScroll={(e) => {
-        console.log(e)
-      }}>
+    <div>
       <header
         style={{
           background: 'RED',
@@ -39,12 +43,23 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
         list information
       </header>
       <input type="text" value={value} onChange={(e: any) => setValue(e.target.value)} />
+      <button onClick={() => setValue((value) => value + 1)}>+</button>
       <article>
-        {list.map((i: any, index: number) => (
-          <div key={index} className={'item'}>
-            <Button value={i} style={btn} />
-          </div>
-        ))}
+        {list.map((i: any, index: number, arr) => {
+          if (arr.length - 1 === index) {
+            return (
+              <div key={index} className={'item'} ref={lastItemRef}>
+                <Button value={i} style={btn} />
+              </div>
+            )
+          } else {
+            return (
+              <div key={index} className={'item'}>
+                <Button value={i} style={btn} />
+              </div>
+            )
+          }
+        })}
       </article>
       <div>{loading && 'loading'}</div>
       <div>{error && 'error'}</div>
