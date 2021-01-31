@@ -23,15 +23,22 @@ interface ListProps {
 }
 const SliderLoadList: FC<Partial<ListProps>> = () => {
   const [value, setValue] = useState(0)
-  const {hasMore, loading, list, error} = useList(+value)
+  const {hasMore, loading, list, error} = useList(+value, 10)
 
   const observer = useRef<any>()
-  const lastItemRef = useCallback((ele: any) => {
-    if (loading) return
-    if (observer.current) {
-      observer?.current?.disconnect()
-    }
-  }, [])
+  const lastItemRef = useCallback(
+    (node: any) => {
+      if (loading) return
+      if (observer.current) observer.current.disconnect()
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setValue((val) => val + 1)
+        }
+      })
+      if (node) observer.current.observe(node)
+    },
+    [loading, hasMore]
+  )
 
   return (
     <div>
@@ -63,6 +70,13 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
       </article>
       <div>{loading && 'loading'}</div>
       <div>{error && 'error'}</div>
+      <footer
+        style={{
+          background: 'RED',
+          height: 80,
+        }}>
+        footer information
+      </footer>
     </div>
   )
 }

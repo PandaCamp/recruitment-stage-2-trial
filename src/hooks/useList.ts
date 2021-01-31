@@ -6,7 +6,7 @@ const data: number[] = (function (length: number): any[] {
     list.push(i)
   }
   return list
-})(2000)
+})(44)
 
 export function useList(value: number, size = 1) {
   const [hasMore, setHasMore] = useState(true)
@@ -28,7 +28,11 @@ export function useList(value: number, size = 1) {
     }).then((res) => {
       setTimeout(() => {
         setList((prev) => {
-          return [...new Set([...prev, ...res])]
+          const newList = [...new Set([...prev, ...res])]
+          if (newList.length === data.length) {
+            setHasMore(false)
+          }
+          return newList
         })
         setLoading(false)
       }, 500)
