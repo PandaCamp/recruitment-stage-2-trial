@@ -1,5 +1,8 @@
-import React, {FC, useEffect, useState} from 'react'
+import React, {FC, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import Button from '../components/button'
+import {useList} from '../hooks/useList'
+
+import './list.css'
 const btn: React.CSSProperties = {
   marginTop: 50,
   height: 48,
@@ -12,37 +15,42 @@ const btn: React.CSSProperties = {
   textAlign: 'center',
   outline: 'none',
 }
-const data = (function (length: number): any[] {
-  let list: any[] = []
-  for (let i = 0; i < length; i++) {
-    list.push(i)
-  }
-  return list
-})(100)
+
 interface ListProps {
   initialSize: number
   size: number
   loadingAnimation: React.ReactNode
 }
 const SliderLoadList: FC<Partial<ListProps>> = () => {
-  const [loading, setLoading] = useState(true)
-  async function fetchData() {
-    return true
-  }
+  const {hasMore, loading, list, error} = useList()
+
   useEffect(() => {
     if (loading === true) {
       console.log(1)
     }
   }, [])
+
   return (
-    <div>
-      <header>list information</header>
+    <div
+      onScroll={(e) => {
+        console.log(e)
+      }}>
+      <header
+        style={{
+          background: 'RED',
+          height: 80,
+        }}>
+        list information
+      </header>
       <article>
-        {' '}
-        {data.map((i) => (
-          <Button value={i} style={btn} />
+        {list.map((i: any, index: number) => (
+          <div key={index} className={'item'}>
+            <Button value={i} style={btn} />
+          </div>
         ))}
       </article>
+      <div>{loading && 'loading'}</div>
+      <div>{error && 'error'}</div>
     </div>
   )
 }
