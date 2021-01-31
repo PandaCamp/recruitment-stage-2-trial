@@ -1,9 +1,8 @@
 import React, {useLayoutEffect, useRef, useState} from 'react'
 import Button from '../components/button'
 import Input from '../components/input'
-import Input2 from '../components/input2'
-import './reset.css'
 
+import './reset.css'
 
 //#region  CSS
 type CSS = React.CSSProperties
@@ -91,7 +90,7 @@ export default function Login() {
         <Input style={{...ipt1, marginBottom: 30}} value="" />
 
         <Input style={ipt1} />
-        <Input2 />
+
         <Button disable style={btn} />
       </article>
       <footer style={{...ft, height: ~~footerEleHeight, top: distance}}>
