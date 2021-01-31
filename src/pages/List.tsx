@@ -22,13 +22,9 @@ interface ListProps {
   loadingAnimation: React.ReactNode
 }
 const SliderLoadList: FC<Partial<ListProps>> = () => {
-  const {hasMore, loading, list, error} = useList()
-
-  useEffect(() => {
-    if (loading === true) {
-      console.log(1)
-    }
-  }, [])
+  const [value, setValue] = useState(0)
+  const {hasMore, loading, list, error} = useList(+value)
+  console.log(list)
 
   return (
     <div
@@ -42,6 +38,7 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
         }}>
         list information
       </header>
+      <input type="text" value={value} onChange={(e: any) => setValue(e.target.value)} />
       <article>
         {list.map((i: any, index: number) => (
           <div key={index} className={'item'}>
