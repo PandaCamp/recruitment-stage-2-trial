@@ -1,0 +1,26 @@
+.dialogContainer {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px 16px 0 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0 20px;
+  z-index: 1;
+  overflow:auto;
+  header {
+    height: 60px;
+    line-height: 60px;
+    .close {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .tipTitle {
+    margin-bottom: 20px;
+    font-family: PingFangSC-Medium;
+    font-size: 20px;
+    color: #252c33;
+    font-weight: 500;
+  }
+}
