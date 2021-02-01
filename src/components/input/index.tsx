@@ -58,7 +58,7 @@ const Input: FC<InputProps> = props => {
                     className={style["input"]}
                     value={props.disabled ? props.defaultValue ?? '--' : props.value}
                     disabled={props.disabled}
-                    
+                    style={props.style}
                     />
                     <div className={style["close"]} onClick={clearInput} style={{display: flag?"block":"none"}}>{clearIcon}</div>
                 </div>        
