@@ -87,8 +87,8 @@ export default function Login() {
         <div style={title}>员工登录</div>
         <div style={desc}>员工登录后，可推荐应聘者获取奖金哦～</div>
 
-        <Input style={{...ipt1, marginBottom: 30}} clearIcon="🐷" />
-
+        <Input style={{...ipt1, marginBottom: 30}} value=""  />
+      
         <Input style={ipt1} />
 
         <Button disable style={btn} />
