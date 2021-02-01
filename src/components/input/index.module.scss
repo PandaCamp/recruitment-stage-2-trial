@@ -1,5 +1,5 @@
 input {
-    padding-right: 30px;
+    
     width: 100%;
 }
 input:focus {
@@ -47,6 +47,9 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
                 padding-top: 3px;
                 font-size: 18px;
                 margin-bottom: 20px;
+                outline: none;
+                border: none;
+                padding-right: 30px;
                 &:disabled {
                     background-color: #fff;
                     color: #8C8C8C;

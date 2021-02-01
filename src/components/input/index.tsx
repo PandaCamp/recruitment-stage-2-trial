@@ -8,7 +8,8 @@ interface InputProps {
     placeHolder?: string // 输入框的提示信息
     fieldShow?: boolean // 其它的字段是否需要展示
     errorMessage?: string // 错误信息提示
-    value?: string // 默认的value值
+    defaultValue?: string // 默认的value值
+    value?: string // 输入的value值
     disabled?: boolean // 输入框是否禁止状态
     handleDialog?: () => void // 触发手机号弹窗的事件
 }
@@ -54,7 +55,7 @@ const Input: FC<InputProps> = props => {
                     placeholder={props.placeHolder ?? "请填写"}
                     ref={inputRefEle}
                     className={style["input"]}
-                    value={props.value}
+                    value={props.disabled ? props.defaultValue ?? '--' : props.value}
                     disabled={props.disabled}
                     
                     />
