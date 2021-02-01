@@ -3,6 +3,7 @@ import React,{FC} from 'react'
 import style from './index.module.scss'
 
 interface InputProps {
+    style?: React.CSSProperties
     clearIcon?: React.ReactNode
     field?:string // 控件的字段名称
     placeHolder?: string // 输入框的提示信息
