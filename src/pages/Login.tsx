@@ -57,7 +57,7 @@ const svgContent: CSS = {
 }
 const wrap: CSS = {
   marginTop: UI.offsetTop,
-  height: UI.wrapHeight
+  height: UI.wrapHeight,
 }
 //#endregion
 
@@ -70,11 +70,12 @@ export default function Login() {
 
   useLayoutEffect(() => {
     function calcDistance(): number {
-      return viewPortHeight - UI.svgHeight
+      return viewPortHeight - Math.min(UI.svgHeight, realSVGHeight)
     }
     /* For optimization we assume that use can't change the viewport size on mobile. so we don't need to listen event `onsize`*/
-    setFooterEleHeight(svgRef.current?.getBoundingClientRect().height ?? UI.svgHeight)
     const viewPortHeight = (wrapRef.current?.getBoundingClientRect().height ?? 0) + UI.offsetTop
+    const realSVGHeight = svgRef.current?.getBoundingClientRect().height ?? UI.svgHeight
+    setFooterEleHeight(realSVGHeight)
     setWrapStyle({...wrap, height: viewPortHeight - UI.offsetTop ?? UI.wrapHeight})
     setDistance(calcDistance())
     console.log(viewPortHeight)
