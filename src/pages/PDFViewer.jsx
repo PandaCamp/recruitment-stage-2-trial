@@ -13,10 +13,7 @@ export default function MyApp() {
   return (
     <div>
       hahaaha
-      <Document
-        file={`https://kdocs.cn/l/ciqSTMYmyBz4
-[金山文档] Rich Dad Poor Dad first.pdf`}
-        onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={`../../public/give-and-take.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={pageNumber} />
       </Document>
       <p>
