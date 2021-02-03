@@ -33,7 +33,7 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
   const [value, setValue] = useState(0)
   const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true)
   const [searchBarStyle, setSearchBarStyle] = useState<React.CSSProperties>(See)
-  const {hasMore, loading, list, error} = useList(+value, 10)
+  const {hasMore, loading, list, error} = useList(+value, 200)
 
   const observer = useRef<any>()
   const headerObserver = useRef<any>()
