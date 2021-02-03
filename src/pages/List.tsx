@@ -22,6 +22,7 @@ const See: React.CSSProperties = {
 const Blind: React.CSSProperties = {
   position: 'fixed',
   top: 0,
+  width:'100%'
 }
 interface ListProps {
   initialSize: number
