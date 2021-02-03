@@ -15,7 +15,14 @@ const btn: React.CSSProperties = {
   textAlign: 'center',
   outline: 'none',
 }
-
+const See: React.CSSProperties = {
+  position: 'static',
+  top: 0,
+}
+const Blind: React.CSSProperties = {
+  position: 'fixed',
+  top: 0,
+}
 interface ListProps {
   initialSize: number
   size: number
@@ -24,7 +31,7 @@ interface ListProps {
 const SliderLoadList: FC<Partial<ListProps>> = () => {
   const [value, setValue] = useState(0)
   const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true)
-
+  const [searchBarStyle, setSearchBarStyle] = useState<React.CSSProperties>(See)
   const {hasMore, loading, list, error} = useList(+value, 10)
 
   const observer = useRef<any>()
@@ -48,8 +55,10 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
     headerObserver.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         console.log('see')
+        setSearchBarStyle(See)
       } else {
         console.log('blink')
+        setSearchBarStyle(Blind)
       }
     })
 
@@ -64,10 +73,11 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
         ref={headerRef}
         style={{
           height: 160,
+          visibility: isHeaderVisible ? 'visible' : 'hidden',
         }}>
         <img src={s} alt="" style={{height: 160, width: '100%'}} />
       </header>
-      <div style={{height: 100, background: 'gray'}}>
+      <div style={{height: 100, background: 'gray', ...searchBarStyle}}>
         <input type="text" value={value} onChange={(e: any) => setValue(e.target.value)} />
         <button onClick={() => setValue((value) => value + 1)}>+</button>
       </div>
