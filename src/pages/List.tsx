@@ -22,7 +22,7 @@ const See: React.CSSProperties = {
 const Blind: React.CSSProperties = {
   position: 'fixed',
   top: 0,
-  width:'100%'
+  width: '100%',
 }
 interface ListProps {
   initialSize: number
@@ -37,6 +37,7 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
 
   const observer = useRef<any>()
   const headerObserver = useRef<any>()
+  console.log(isHeaderVisible)
 
   const lastItemRef = useCallback(
     (node: any) => {
@@ -57,9 +58,11 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
       if (entries[0].isIntersecting) {
         console.log('see')
         setSearchBarStyle(See)
+        setIsHeaderVisible(true)
       } else {
         console.log('blink')
         setSearchBarStyle(Blind)
+        setIsHeaderVisible(false)
       }
     })
 
@@ -83,7 +86,10 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
         <button onClick={() => setValue((value) => value + 1)}>+</button>
       </div>
 
-      <article>
+      <article
+        style={{
+          marginTop: isHeaderVisible ? 0 : 100,
+        }}>
         {list.map((i: any, index: number, arr) => {
           if (arr.length - 1 === index) {
             return (
