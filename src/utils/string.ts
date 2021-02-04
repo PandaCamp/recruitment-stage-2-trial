@@ -15,7 +15,7 @@ export function processLocations(sourceString: string, substring: string) {
     }
     if (index === 0) {
       result.push({value: substring, shouldDecorate: true})
-      sourceString = sourceString.substring(index + 1)
+      sourceString = sourceString.substring(index + substring.length)
     }
     if (index > 0) {
       result.push({value: sourceString.substr(0, index), shouldDecorate: false})
