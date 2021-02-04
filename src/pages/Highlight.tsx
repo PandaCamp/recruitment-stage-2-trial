@@ -1,10 +1,33 @@
 import React from 'react'
-import { useHighlight } from '../hooks/useHighlight'
- 
+import {useHighlight} from '../hooks/useHighlight'
 
-const names = ['mary', 'jorg', 'max well']
-
+let c = 1
 export default () => {
+  console.log(c++)
+  function getData(key: string = '') {
+    const names = [
+      'mary',
+      'george',
+      'max well',
+      'work',
+      'William.',
+      'James',
+      'Harper',
+      'Mason',
+      'Evelyn',
+      'Ella',
+      'Jackson',
+      'Avery',
+    ]       
+    if( key.trim()=== ""){
+     return [] 
+    }
+    return names.filter((p) => {
+    
+          return p.includes(key.trim())
+    })
+  }
+
   const {higtlightText, setHighlightText} = useHighlight('')
   return (
     <div>
@@ -16,12 +39,7 @@ export default () => {
         }}
       />
       <ul>
-        {names.map((item) => {
-          if (item.includes(higtlightText)) {
-            console.log(item, higtlightText)
-
-            return <p>123</p>
-          }
+        {getData(higtlightText).map((item) => {
           return <p>{item}</p>
         })}
       </ul>
