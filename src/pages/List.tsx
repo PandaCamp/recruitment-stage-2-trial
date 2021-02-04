@@ -1,7 +1,7 @@
 import React, {FC, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import Button from '../components/button'
 import {useList} from '../hooks/useList'
-
+import s from '../assets/banner1.jpg'
 import './list.css'
 const btn: React.CSSProperties = {
   marginTop: 50,
@@ -15,7 +15,15 @@ const btn: React.CSSProperties = {
   textAlign: 'center',
   outline: 'none',
 }
-
+const See: React.CSSProperties = {
+  position: 'static',
+  top: 0,
+}
+const Blind: React.CSSProperties = {
+  position: 'fixed',
+  top: 0,
+  width: '100%',
+}
 interface ListProps {
   initialSize: number
   size: number
@@ -23,9 +31,14 @@ interface ListProps {
 }
 const SliderLoadList: FC<Partial<ListProps>> = () => {
   const [value, setValue] = useState(0)
-  const {hasMore, loading, list, error} = useList(+value, 10)
+  const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true)
+  const [searchBarStyle, setSearchBarStyle] = useState<React.CSSProperties>(See)
+  const {hasMore, loading, list, error} = useList(+value, 1)
 
   const observer = useRef<any>()
+  const headerObserver = useRef<any>()
+  console.log(isHeaderVisible)
+
   const lastItemRef = useCallback(
     (node: any) => {
       if (loading) return
@@ -39,19 +52,44 @@ const SliderLoadList: FC<Partial<ListProps>> = () => {
     },
     [loading, hasMore]
   )
+  const headerRef = useCallback((node: any) => {
+    if (headerObserver.current) headerObserver.current.disconnect()
+    headerObserver.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        console.log('see')
+        setSearchBarStyle(See)
+        setIsHeaderVisible(true)
+      } else {
+        console.log('blink')
+        setSearchBarStyle(Blind)
+        setIsHeaderVisible(false)
+      }
+    })
 
+    if (node) headerObserver?.current?.observe(node)
+  }, [])
+  useEffect(() => {
+    console.log(isHeaderVisible)
+  }, [isHeaderVisible])
   return (
     <div>
       <header
+        ref={headerRef}
         style={{
-          background: 'RED',
-          height: 80,
+          height: 160,
+          visibility: isHeaderVisible ? 'visible' : 'hidden',
         }}>
-        list information
+        <img src={s} alt="" style={{height: 160, width: '100%'}} />
       </header>
-      <input type="text" value={value} onChange={(e: any) => setValue(e.target.value)} />
-      <button onClick={() => setValue((value) => value + 1)}>+</button>
-      <article>
+      <div style={{height: 100, background: 'gray', ...searchBarStyle}}>
+        <input type="text" value={value} onChange={(e: any) => setValue(e.target.value)} />
+        <button onClick={() => setValue((value) => value + 1)}>+</button>
+      </div>
+
+      <article
+        style={{
+          marginTop: isHeaderVisible ? 0 : 100,
+        }}>
         {list.map((i: any, index: number, arr) => {
           if (arr.length - 1 === index) {
             return (

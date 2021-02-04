@@ -6,7 +6,7 @@ const data: number[] = (function (length: number): any[] {
     list.push(i)
   }
   return list
-})(44)
+})(100000)
 
 export function useList(value: number, size = 1) {
   const [hasMore, setHasMore] = useState(true)
