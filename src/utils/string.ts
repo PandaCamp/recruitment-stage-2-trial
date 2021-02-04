@@ -8,6 +8,7 @@ export function processLocations(sourceString: string, substring: string) {
   const totalLength = sourceString.length
   const result: {value: string; shouldDecorate: boolean}[] = []
   const indexPosSequence = locations(sourceString, substring)
+
   for (let i = 0; i < indexPosSequence.length; i++) {
     let index = indexPosSequence[i]
     if (i > 0) {
@@ -27,5 +28,6 @@ export function processLocations(sourceString: string, substring: string) {
       result.push({value: sourceString, shouldDecorate: false})
     }
   }
+
   return result
 }
