@@ -1,9 +1,10 @@
 import React from 'react'
 import {useHighlight} from '../hooks/useHighlight'
+import {locations, processLocations} from '../utils/string'
 
 let c = 1
 export default () => {
-  console.log(c++)
+  // console.log(c++)
   function getData(key: string = '') {
     const names = [
       'mary',
@@ -18,13 +19,12 @@ export default () => {
       'Ella',
       'Jackson',
       'Avery',
-    ]       
-    if( key.trim()=== ""){
-     return [] 
+    ]
+    if (key.trim() === '') {
+      return []
     }
     return names.filter((p) => {
-    
-          return p.includes(key.trim())
+      return p.includes(key.trim())
     })
   }
 
@@ -40,7 +40,20 @@ export default () => {
       />
       <ul>
         {getData(higtlightText).map((item) => {
-          return <p>{item}</p>
+          let aa = processLocations(item, higtlightText)
+          console.log(aa);
+          
+          return (
+            <p>
+              {aa.map((seg) => {
+                if (seg.shouldDecorate) {
+                  return <span style={{color: 'red'}}>{seg.value}</span>
+                } else {
+                  return <span>{seg.value}</span>
+                }
+              })}
+            </p>
+          )
         })}
       </ul>
     </div>
