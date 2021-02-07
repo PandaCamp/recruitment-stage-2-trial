@@ -1,11 +1,15 @@
 import type {FC} from 'react'
-import './style.scss'
+import {TemplateLiteral} from 'typescript'
 
-const Chain = (prefix: TemplateStringsArray | string) => (affix: TemplateStringsArray | string) =>
-  ((prefix as unknown) as string) + ((affix as unknown) as string)
-const p = Chain`xxx`
-const p2 = Chain(p`__wrap`)
-const p3 = Chain(p2`__box`)
+import './style.scss'
+export const C = <T extends TemplateStringsArray | string, T2 extends TemplateStringsArray | string>(prefix: T) => (
+  affix: T2
+) => `${prefix}${affix}`
+
+const c = C`xxx`
+const c2 = C(c`__wrap`)
+const c3 = C(c2`__box`)
+const c4 = C(c3`__input`)
 
 interface InputProps {
   /* 文本值 */
@@ -17,13 +21,25 @@ interface InputProps {
 
 const Input: FC<InputProps> = (props) => {
   return (
-    <div className={p2``}>
-      <div className={p3``}>
-        <input type="text" className={p3`__input`} />1
+    <div className={c2``}>
+      <div className={c3``}>
+        <input type="text" className={c4``} />1
       </div>
-      <div className={p`__wrap__polishing`}> </div>
+      <div className={c2`__polishing`}> </div>
     </div>
   )
 }
 
 export default Input
+
+function a<T extends string>(a: T) {
+  return function b<T2 extends string>(b: T2) {
+    return `${a}${b}` as `${T}${T2}`
+  }
+}
+
+let a1 = a('xxx')
+
+let a2 = a(a1('__wrap'))
+
+let a3 = a(a2('__'))

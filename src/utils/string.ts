@@ -31,3 +31,4 @@ export function processLocations(sourceString: string, substring: string) {
 
   return result
 }
+
