@@ -1,8 +1,9 @@
 import type {FC} from 'react'
 import './style.scss'
 
-const createCSSPrefix = (prefix: string) => (affix: TemplateStringsArray) => prefix + affix
-const p = createCSSPrefix('xxx')
+const createCSSPrefix = (prefix: TemplateStringsArray | string) => (affix: TemplateStringsArray | string) =>
+  ((prefix as unknown) as string) + ((affix as unknown) as string)
+const p = createCSSPrefix`xxx`
 const p2 = createCSSPrefix(p`__wrap`)
 const p3 = createCSSPrefix(p2`__box`)
 
