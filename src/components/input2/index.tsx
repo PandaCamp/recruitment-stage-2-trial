@@ -1,11 +1,11 @@
 import type {FC} from 'react'
 import './style.scss'
 
-const createCSSPrefix = (prefix: TemplateStringsArray | string) => (affix: TemplateStringsArray | string) =>
+const Chain = (prefix: TemplateStringsArray | string) => (affix: TemplateStringsArray | string) =>
   ((prefix as unknown) as string) + ((affix as unknown) as string)
-const p = createCSSPrefix`xxx`
-const p2 = createCSSPrefix(p`__wrap`)
-const p3 = createCSSPrefix(p2`__box`)
+const p = Chain`xxx`
+const p2 = Chain(p`__wrap`)
+const p3 = Chain(p2`__box`)
 
 interface InputProps {
   /* 文本值 */
@@ -18,7 +18,7 @@ interface InputProps {
 const Input: FC<InputProps> = (props) => {
   return (
     <div className={p2``}>
-      <div className={p2`__box`}>
+      <div className={p3``}>
         <input type="text" className={p3`__input`} />1
       </div>
       <div className={p`__wrap__polishing`}> </div>
