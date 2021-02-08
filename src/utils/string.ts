@@ -32,3 +32,11 @@ export function processLocations(sourceString: string, substring: string) {
   return result
 }
 
+export const C = <T extends TemplateStringsArray | string, T2 extends TemplateStringsArray | string>(prefix: T) => (
+  affix: T2
+) => `${prefix}${affix}`
+export function getPalette() {
+  return {
+    S6: 'rgb(19, 194, 194)',
+  }
+}

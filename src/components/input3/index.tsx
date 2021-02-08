@@ -1,6 +1,5 @@
-import {getPalette} from '&/theme/palette'
-import {classChain as C} from '&/utils/string'
-import Close from '&/assets/icon/close'
+import {C, getPalette} from '../../utils/string'
+import Close from './close'
 import React, {FC, useCallback, useState} from 'react'
 
 import './style.scss'
@@ -84,7 +83,7 @@ const Input: FC<Partial<InputProps>> = (props) => {
   }, [isError])
 
   return (
-    <div className={`${c2``} ${className}`}>
+    <div className={`${c2``} ${className}`} style={{...style}}>
       <div className={c3``} style={type === 'group' ? flex : block}>
         {prefix}
         <input
@@ -110,7 +109,7 @@ const Input: FC<Partial<InputProps>> = (props) => {
         />
         {hasValue && isTouch && (
           <Close
-            onClick={() => {
+            onMouseDown={() => {
               console.log(value)
 
               setVal('')

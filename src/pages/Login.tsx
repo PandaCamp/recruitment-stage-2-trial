@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useRef, useState} from 'react'
 import Button from '../components/button'
-import Input from '../components/input'
-import Input2 from '../components/input2'
+
+import Input from '../components/input3'
 
 import './reset.css'
 
@@ -89,8 +89,8 @@ export default function Login() {
         <div style={title}>员工登录</div>
         <div style={desc}>员工登录后，可推荐应聘者获取奖金哦～</div>
 
-        <Input style={{...ipt1, marginBottom: 30}} value="" />
-        <Input2 value="" />
+        <Input value="" style={{marginTop: 20}} placeholder="请输入邮箱" />
+        <Input value="" style={{marginTop: 20}} placeholder="请输入你的验证码" />
         {/* <Input style={ipt1} /> */}
 
         <Button disable style={btn} />

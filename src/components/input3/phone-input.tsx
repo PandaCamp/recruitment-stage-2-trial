@@ -1,5 +1,5 @@
 import React from 'react'
-import {Input} from '.'
+import Input from './index'
 
 const phoneRegion: React.CSSProperties = {
   fontSize: 18,
@@ -29,6 +29,5 @@ export default function PhoneInput() {
     />
   )
 }
-
 
 // calc(100% - 10px - 77px)
