@@ -31,15 +31,3 @@ const Input: FC<InputProps> = (props) => {
 }
 
 export default Input
-
-function a<T extends string>(a: T) {
-  return function b<T2 extends string>(b: T2) {
-    return `${a}${b}` as `${T}${T2}`
-  }
-}
-
-let a1 = a('xxx')
-
-let a2 = a(a1('__wrap'))
-
-let a3 = a(a2('__'))

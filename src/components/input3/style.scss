@@ -1,0 +1,52 @@
+
+$prefix: uxi-input;
+
+@keyframes #{$prefix}polish {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.#{$prefix}__wrap {
+  font-family: PingFang SC;
+  height: 48px;
+  &__polishing {
+    width: 100%;
+    height: 1px;
+    position: relative;
+    top: 15px;
+    background: $S6;
+    &--effect {
+      animation: #{$prefix}polish 0.15s ease;
+    }
+  }
+  &__polishing--error {
+    background: red;
+  }
+  &__box {
+    &__input {
+      &::placeholder {
+        color: #d9d9d9;
+        letter-spacing: 0;
+        font-weight: 400;
+      }
+      height: 30px;
+      width: calc(100% - 10px - 22px);
+      font-size: 18px;
+      outline: none;
+      border: none;
+      &:focus {
+        caret-color: $S6;
+      }
+    }
+    &__close {
+      position: relative;
+      top: 6px;
+      left: 10px;
+      flex: 40px;
+    }
+  }
+}
