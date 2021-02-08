@@ -19,7 +19,6 @@ export default function PhoneInput() {
   return (
     <Input
       type="group"
-      style={{display: 'flex'}}
       prefix={
         <>
           <span style={phoneRegion}>+86</span>
