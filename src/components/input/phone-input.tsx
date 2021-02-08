@@ -29,5 +29,3 @@ export default function PhoneInput() {
     />
   )
 }
-
-// calc(100% - 10px - 77px)

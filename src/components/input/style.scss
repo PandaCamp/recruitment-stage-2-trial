@@ -22,12 +22,12 @@ $S6: rgb(19, 194, 194);
       animation: #{$prefix}polish 0.15s ease;
     }
   }
-  &__polishing--error {
+  &__polishing--error { 
     background: red;
   }
   &__box {
     &__input {
-      &::placeholder {
+      &::placeholder {        
         color: #d9d9d9;
         letter-spacing: 0;
         font-weight: 400;

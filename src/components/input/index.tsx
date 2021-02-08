@@ -1,73 +1,133 @@
-import React,{FC} from 'react'
-// import CmpDemo from "@beisen-phoenix/demo-container"
-import style from './index.module.scss'
+import {C, getPalette} from '../../utils/string'
+import Close from './close'
+import React, {FC, useCallback, useState} from 'react'
 
-interface InputProps {
-    style?: React.CSSProperties
-    clearIcon?: React.ReactNode
-    field?:string // 控件的字段名称
-    placeHolder?: string // 输入框的提示信息
-    fieldShow?: boolean // 其它的字段是否需要展示
-    errorMessage?: string // 错误信息提示
-    defaultValue?: string // 默认的value值
-    value?: string // 输入的value值
-    disabled?: boolean // 输入框是否禁止状态
-    handleDialog?: () => void // 触发手机号弹窗的事件
+import './style.scss'
+
+const c = C`uxi-input`
+const c2 = C(c`__wrap`)
+const c3 = C(c2`__box`)
+const p3 = C(c2`__polishing`)
+const c4 = C(c3`__input`) as (val: TemplateStringsArray) => 'uxi__wrap__box'
+const {S6} = getPalette()
+
+enum StatePalette {
+  normal,
+  error,
+  touch,
+}
+const statePalette = {
+  [StatePalette.normal]: '#F5F5F5',
+  [StatePalette.error]: 'red',
+  [StatePalette.touch]: S6,
 }
 
-const Input: FC<InputProps> = props => {
-    const {clearIcon='X'} = props
-    let lineRefEle = React.useRef<HTMLDivElement>(null);
-    let inputRefEle = React.useRef<HTMLInputElement>(null);
-    let [flag, setFlag] = React.useState(false) // 控制按钮显示
-    const handleFocus = function() :void {
-        lineRefEle.current!.className = style["lineStyle"];
-        setFlag(true);
-    }
-    const handleBlur = () :void => {
-        lineRefEle.current!.className = style["line"];
-        setFlag(false);
-    }
-    const clearInput = () :void => {
-        console.log(2222);
-        
-        inputRefEle.current!.value = '';
-    }
-    return (
-        <div className={style["inputItemContainer"]}>
+interface InputProps {
+  prefix: React.ReactNode
+  affix: React.ReactNode
+  /* 文本值 */
+  value?: string
+  style?: React.CSSProperties
+  /**50%透明度的特效 */
+  disable: boolean
+  placeholder: string
+  className: string
+  onValidate(e: React.ChangeEvent<HTMLInputElement>): boolean
+  onClear(): void
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void
+  type?: Type
+}
+type Type = 'group' | undefined
 
-            {props.field && <div className={style["fieldName"]}>
-                {props.field}&nbsp;<span style={{color: "red"}}>{props.disabled ?? "*"}</span>
-            </div>}
-            <div className={style["inputBox"]}>
-                {props.fieldShow && 
-                <div 
-                    className={style["fieldLeft"]} 
-                    style={{color: props.disabled ? '#8c8c8c': ''}}
-                >
-                    <label>{props.disabled?'+86':"大陆手机号"}</label> 
-                    <span onClick={props.handleDialog} className={style["toggleState"]}>^</span> 
-                    <span className={style["splitLine"]}></span>
-                </div>}
-                <div className={style["inputRight"]}>             
-                    <input onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    type="text"
-                    placeholder={props.placeHolder ?? "请填写"}
-                    ref={inputRefEle}
-                    className={style["input"]}
-                    value={props.disabled ? props.defaultValue ?? '--' : props.value}
-                    disabled={props.disabled}
-                    style={props.style}
-                    />
-                    <div className={style["close"]} onClick={clearInput} style={{display: flag?"block":"none"}}>{clearIcon}</div>
-                </div>        
-            </div>
-            <div ref={lineRefEle} className={props.errorMessage ? style["errorLine"] : style["line"]} ></div>
-            {props.errorMessage && <div className={style["errorArea"]}>{props.errorMessage}</div>}
-        </div>
-    )
+const flex: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+}
+const block: React.CSSProperties = {
+  display: 'block',
+}
+const Input: FC<Partial<InputProps>> = (props) => {
+  const {
+    placeholder = '',
+    onValidate = (e: React.ChangeEvent<HTMLInputElement>) => true,
+    onClear = () => void 0,
+    disable = false,
+    style = {},
+    value = '',
+    className = '',
+    prefix = <></>,
+    affix = <></>,
+    type = undefined,
+  } = props
 
+  const [hasValue, setHasValue] = useState<boolean>(value.length > 0)
+  const [isTouch, setIsTouch] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
+  const [polishingColor, setPolishingColor] = useState<string>(statePalette[StatePalette.normal])
+  const [val, setVal] = useState(value)
+  function polish() {
+    setIsTouch((val) => !val)
+  }
+  const onFocus = useCallback(() => {
+    polish()
+    if (isError) setPolishingColor(statePalette[StatePalette.error])
+    else setPolishingColor(statePalette[StatePalette.touch])
+  }, [isError])
+  const onBlur = useCallback(() => {
+    polish()
+    if (isError) {
+      setPolishingColor(statePalette[StatePalette.error])
+      return
+    }
+    setPolishingColor(statePalette[StatePalette.normal])
+  }, [isError])
+
+  return (
+    <div className={`${c2``} ${className}`} style={{...style}}>
+      <div className={c3``} style={type === 'group' ? flex : block}>
+        {prefix}
+        <input
+          placeholder={placeholder}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={(e) => {
+            if (onValidate(e)) {
+              setPolishingColor(statePalette[StatePalette.touch])
+              setIsError(false)
+            } else {
+              setPolishingColor(statePalette[StatePalette.error])
+              setIsError(true)
+            }
+            if (e.target.value.length <= 0) setHasValue(false)
+            else setHasValue(true)
+
+            setVal(e.target.value)
+          }}
+          type="text"
+          className={c4``}
+          value={val}
+        />
+        {hasValue && isTouch && (
+          <Close
+            onMouseDown={() => {
+              console.log(value)
+
+              setVal('')
+              setHasValue(false)
+              setPolishingColor(statePalette[StatePalette.normal])
+              onClear()
+            }}
+            className={c3`__close`}
+            width={22}
+            height={22}
+          />
+        )}
+      </div>
+      <div
+        className={`${p3``} ${isTouch ? p3`--effect` : ''}`}
+        style={{backgroundColor: polishingColor, height: 1}}></div>
+    </div>
+  )
 }
 
 export default Input
