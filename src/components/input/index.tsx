@@ -8,7 +8,7 @@ const c = C`uxi-input`
 const c2 = C(c`__wrap`)
 const c3 = C(c2`__box`)
 const p3 = C(c2`__polishing`)
-const c4 = C(c3`__input`) as (val: TemplateStringsArray) => 'uxi__wrap__box'
+const c4 = C(c3`__input`)
 const {S6} = getPalette()
 
 enum StatePalette {
