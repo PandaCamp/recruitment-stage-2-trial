@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Button from '.'
 
 import {render} from '@testing-library/react'
-import renderer from "react-test-renderer"
+import renderer from 'react-test-renderer'
 
 it('rende', () => {
   const div = document.createElement('div')
@@ -15,9 +15,7 @@ it('render button correctly', () => {
   expect(getByTestId('button')).toHaveTextContent('123')
 })
 
-
-it('match snapshot 1',()=>{
-    const tree = renderer.create(<Button value="~~~" />).toJSON()
-    
-
+it('match snapshot 1', () => {
+  const tree = renderer.create(<Button value="~~~" />).toJSON()
+  expect(tree).toMatchSnapshot()
 })
